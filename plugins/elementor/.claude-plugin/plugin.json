@@ -1,0 +1,26 @@
+{
+  "name": "elementor",
+  "displayName": "Elementor",
+  "version": "1.0.0",
+  "description": "Plan your Elementor site and build native, editable pages from a plan, HTML, or Figma. Includes skills that guide you to connect your site's Elementor MCP server in your agent host",
+  "author": {
+    "name": "Elementor",
+    "url": "https://elementor.com"
+  },
+  "homepage": "https://elementor.com",
+  "repository": "https://github.com/elementor/elementor-agents-plugin",
+  "license": "GPL-3.0-or-later",
+  "keywords": [
+    "elementor",
+    "wordpress",
+    "website-builder",
+    "mcp",
+    "figma",
+    "html"
+  ],
+  "documentationUrl": "https://elementor.com/help/",
+  "supportUrl": "https://elementor.com/support/",
+  "privacyPolicyUrl": "https://elementor.com/terms/privacy/",
+  "termsOfServiceUrl": "https://elementor.com/terms/",
+  "icon": "./assets/icon.svg"
+}

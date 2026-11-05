@@ -1,0 +1,25 @@
+{
+  "name": "elementor",
+  "owner": {
+    "name": "Elementor",
+    "url": "https://elementor.com"
+  },
+  "metadata": {
+    "description": "Elementor plugins for Claude",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "elementor",
+      "source": "./plugins/elementor",
+      "description": "Plan your Elementor site and build native, editable pages from a plan, HTML, or Figma. Skills guide you to connect your site's Elementor MCP server in your agent host",
+      "version": "1.0.0",
+      "author": {
+        "name": "Elementor"
+      },
+      "homepage": "https://elementor.com",
+      "category": "design",
+      "keywords": ["elementor", "wordpress", "website-builder", "mcp", "figma", "html"]
+    }
+  ]
+}

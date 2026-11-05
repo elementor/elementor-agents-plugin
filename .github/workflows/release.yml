@@ -1,0 +1,39 @@
+name: Release build
+
+on:
+  push:
+    branches: [master]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Build Claude plugin zip
+        run: |
+          chmod +x scripts/*.sh
+          ./scripts/build.sh claude
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="$(node -p "require('./plugins/elementor/.claude-plugin/plugin.json').version")"
+          tag="v${version}-build.${GITHUB_RUN_NUMBER}"
+          asset="dist/elementor-${version}-build.${GITHUB_RUN_NUMBER}.zip"
+          cp "dist/elementor-${version}.zip" "$asset"
+          gh release create "$tag" "$asset" --target "$GITHUB_SHA" --title "$tag" --generate-notes
