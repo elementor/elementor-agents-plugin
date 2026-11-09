@@ -33,13 +33,13 @@ chmod +x scripts/*.sh   # once
 
 **CI** (`.github/workflows/validate.yml`) and local gate **`scripts/ci-validate.sh`**:
 
-1. **`sync-skills.sh`** — copies skill folders → `plugins/elementor/skills/`. On PRs from this repo, CI commits the result to the PR branch (`chore: sync generated skills`). In CI, `ci-validate.sh` fails if the committed skills differ from `packages/`.
-2. **`check-skills.sh`** — length, frontmatter, no version-specific tool/widget names.
+1. **`sync-skills.sh`** — copies skill folders → `plugins/elementor/skills/`. Authors commit that result with their change. In CI, `ci-validate.sh` fails if the committed skills differ from `packages/`.
+2. **`check-skills.sh`** — length, frontmatter, no version-specific tool/widget names, and the outside-content rule on the skills that read pages or designs.
 3. **`claude plugin validate`** — marketplace + plugin, `--strict` (uses `claude` on PATH, or `npx @anthropic-ai/claude-code@2.1.308`).
 
 **Release build** (`build.sh`) runs `ci-validate.sh` for the Claude target, then packages:
 
-4. **Package** — zip the Claude plugin folder, or copy skills for Codex.
+4. **Package** — zip the Claude plugin folder, or copy skills for Codex. The zip step fails if `plugins/elementor` contains a symlink.
 
 Version comes from `plugins/elementor/.claude-plugin/plugin.json` (`version` field). Output names include that version, e.g. `dist/elementor-1.0.0.zip`.
 

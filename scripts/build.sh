@@ -27,6 +27,12 @@ build_claude() {
 	out="$DIST/elementor-${ver}.zip"
 	mkdir -p "$DIST"
 	rm -f "$out"
+	links="$(find "$PLUGIN" -type l -print)"
+	if [ -n "$links" ]; then
+		echo "FAIL: plugins/elementor contains a symlink"
+		printf '%s\n' "$links"
+		exit 1
+	fi
 	( cd "$PLUGIN" && zip -rq -X "$out" . -x '*.DS_Store' '__MACOSX/*' )
 	echo "Built $out"
 	unzip -l "$out" | tail -3

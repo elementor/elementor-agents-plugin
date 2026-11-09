@@ -16,6 +16,13 @@ if [ -n "${CI:-}" ] && drift="$(git -C "$ROOT" status --porcelain -- plugins/ele
 	exit 1
 fi
 
+links="$(find "$PLUGIN" -type l -print)"
+if [ -n "$links" ]; then
+	echo "FAIL: plugins/elementor contains a symlink"
+	printf '%s\n' "$links"
+	exit 1
+fi
+
 "$ROOT/scripts/check-skills.sh"
 
 run_claude() {

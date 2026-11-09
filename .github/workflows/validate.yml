@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate:
@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || github.ref }}
+          persist-credentials: false
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -30,20 +30,6 @@ jobs:
         run: |
           chmod +x scripts/*.sh
           ./scripts/sync-skills.sh
-
-      - name: Commit synced skills to the PR branch
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-        run: |
-          if [ -z "$(git status --porcelain -- plugins/elementor/skills)" ]; then
-            echo "Generated skills already in sync"
-            exit 0
-          fi
-          ticket="$(echo "$GITHUB_HEAD_REF" | grep -oE 'ED-[0-9]+' | head -1 || true)"
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898809+github-actions[bot]@users.noreply.github.com'
-          git add -A plugins/elementor/skills
-          git commit -m 'chore: sync generated skills' ${ticket:+-m "Ref: $ticket"}
-          git push origin "HEAD:$GITHUB_HEAD_REF"
 
       - name: Validate plugin
         run: ./scripts/ci-validate.sh

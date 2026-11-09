@@ -57,6 +57,6 @@ Your agent talks directly to **your** site; Elementor does not proxy the traffic
 
 ## License
 
-GPL-3.0-or-later. See [LICENSE](plugins/elementor/LICENSE).
+GPL-3.0-or-later. See [LICENSE](LICENSE).
 
 Contributing? See [docs/BUILD.md](docs/BUILD.md).
